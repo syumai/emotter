@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package emotter.v1;
+
+option go_package = "github.com/syumai/emotter/api/gen/emotter/v1;emotterv1";
+
+import "google/protobuf/timestamp.proto";
+
+message Post {
+  string id = 1;
+  string user_name = 2;
+  string emoji = 3;
+  google.protobuf.Timestamp create_time = 4;
+}
+
+message CreatePostRequest {
+  string user_name = 1;
+  string emoji = 2;
+}
+
+message CreatePostResponse {
+  Post post = 1;
+}
+
+message ListPostsRequest {}
+
+message ListPostsResponse {
+  repeated Post posts = 1;
+}
+
+service EmotterService {
+  rpc CreatePost (CreatePostRequest) returns (CreatePostResponse);
+  rpc ListPosts (ListPostsRequest) returns (ListPostsResponse);
+}
+
