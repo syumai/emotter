@@ -9,6 +9,7 @@ require (
 
 require (
 	github.com/google/uuid v1.3.0 // indirect
+	github.com/rs/cors v1.8.2 // indirect
 	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b // indirect
 	golang.org/x/text v0.3.7 // indirect
 )

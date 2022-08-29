@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 	"sort"
@@ -87,7 +88,7 @@ func main() {
 	mux.Handle(path, handler)
 	err := http.ListenAndServe(
 		fmt.Sprintf(":%d", *port),
-		h2c.NewHandler(mux, &http2.Server{}),
+		cors.Default().Handler(h2c.NewHandler(mux, &http2.Server{})),
 	)
 	if err != nil {
 		log.Fatal(err)
