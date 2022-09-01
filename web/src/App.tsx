@@ -1,36 +1,28 @@
 import "./App.css";
-import { useCreatePostMutation, useListPosts } from "./hooks";
 import {
-  CreatePostRequest,
-  ListPostsRequest,
-} from "../gen/emotter/v1/emotter_pb";
+  useCreatePostMutation,
+  useInvalidateListPostsQuery,
+  useListPosts,
+} from "./hooks";
 import React, { useCallback } from "react";
-import { useSWRConfig } from "swr";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-function App() {
+function Posts() {
   const { data: listPostsData, error: listPostsError } = useListPosts({});
-  const { mutate } = useSWRConfig();
-  const onCompleteCreatePost = useCallback(() => {
-    mutate({});
-  }, [mutate]);
-  const [
-    createPost,
-    { data: createPostData, error: createPostError, loading },
-  ] = useCreatePostMutation({
-    onCompleted: onCompleteCreatePost,
-  });
+  const invalidateListPosts = useInvalidateListPostsQuery();
+  const { mutate } = useCreatePostMutation({ onSuccess: invalidateListPosts });
   const onSubmitForm: React.FormEventHandler<HTMLFormElement> = useCallback(
     (event) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
       const userName = formData.get("userName")?.toString() ?? "";
       const emoji = formData.get("emoji")?.toString() ?? "";
-      createPost({ userName, emoji });
+      mutate({ userName, emoji });
     },
     []
   );
   return (
-    <div className="App">
+    <>
       <div className="posts">
         {listPostsData &&
           listPostsData.posts.map(({ id, userName, emoji }) => (
@@ -52,6 +44,18 @@ function App() {
         </div>
         <button>Create Post</button>
       </form>
+    </>
+  );
+}
+
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <div className="App">
+      <QueryClientProvider client={queryClient}>
+        <Posts />
+      </QueryClientProvider>
     </div>
   );
 }
