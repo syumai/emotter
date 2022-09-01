@@ -6,8 +6,7 @@ import {
 } from "./hooks";
 import { FC, useCallback } from "react";
 
-export const Posts: FC = () => {
-  const { data } = useListPosts({});
+const PostForm: FC = () => {
   const invalidateListPosts = useInvalidateListPostsQuery();
   const { mutate } = useCreatePostMutation({ onSuccess: invalidateListPosts });
 
@@ -15,25 +14,30 @@ export const Posts: FC = () => {
     (event) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      const userName = formData.get("userName")?.toString() ?? "";
-      const emoji = formData.get("emoji")?.toString() ?? "";
-      mutate({ userName, emoji });
+      mutate(Object.fromEntries(formData.entries()));
     },
     [mutate]
   );
   return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="userName">name: </label>
+        <input id="userName" type="text" name="userName" required></input>
+      </div>
+      <div>
+        <label htmlFor="emoji">emoji: </label>
+        <input id="emoji" type="text" name="emoji" required></input>
+      </div>
+      <button>Create Post</button>
+    </form>
+  );
+};
+
+export const Posts: FC = () => {
+  const { data } = useListPosts({});
+  return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="userName">userName</label>
-          <input id="userName" type="text" name="userName" required></input>
-        </div>
-        <div>
-          <label htmlFor="emoji">emoji</label>
-          <input id="emoji" type="text" name="emoji" required></input>
-        </div>
-        <button>Create Post</button>
-      </form>
+      <PostForm />
       <hr />
       <div className="posts">
         {data &&
