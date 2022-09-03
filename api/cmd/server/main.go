@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -27,6 +28,10 @@ func (e EmotterServer) CreatePost(
 	ctx context.Context,
 	req *connect.Request[v1.CreatePostRequest],
 ) (*connect.Response[v1.CreatePostResponse], error) {
+	emoji := req.Msg.GetEmoji()
+	if !validateIsEmoji(emoji) {
+		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("input is not emoji"))
+	}
 	post := &v1.Post{
 		Id:         uuid.NewString(),
 		UserName:   req.Msg.GetUserName(),
