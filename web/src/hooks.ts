@@ -28,9 +28,18 @@ export function useListPosts(
 
 export function useInvalidateListPostsQuery(): () => void {
   const queryClient = useQueryClient();
-  return useCallback(() => {
-    queryClient.invalidateQueries([EmotterService.methods.listPosts.name]);
-  }, [queryClient]);
+  return useCallback(
+    (request?: PartialMessage<ListPostsRequest>) => {
+      const keys: (string | PartialMessage<ListPostsRequest>)[] = [
+        EmotterService.methods.listPosts.name,
+      ];
+      if (request) {
+        keys.push(request);
+      }
+      queryClient.invalidateQueries(keys);
+    },
+    [queryClient]
+  );
 }
 
 export function useCreatePostMutation(
