@@ -1,7 +1,3 @@
-import {
-  createConnectTransport,
-  createPromiseClient,
-} from "@bufbuild/connect-web";
 import { PartialMessage } from "@bufbuild/protobuf";
 import { EmotterService } from "../gen/emotter/v1/emotter_connectweb";
 import {
@@ -19,15 +15,12 @@ import {
   UseQueryResult,
 } from "@tanstack/react-query";
 import { useCallback } from "react";
-
-const transport = createConnectTransport({
-  baseUrl: "http://localhost:8080",
-});
-const client = createPromiseClient(EmotterService, transport);
+import { useEmotterServiceClient } from "./client";
 
 export function useListPosts(
   request: PartialMessage<ListPostsRequest>
 ): UseQueryResult<ListPostsResponse> {
+  const client = useEmotterServiceClient();
   return useQuery([EmotterService.methods.listPosts.name, request], () =>
     client.listPosts(request)
   );
@@ -51,6 +44,7 @@ export function useCreatePostMutation(
   unknown,
   PartialMessage<CreatePostRequest>
 > {
+  const client = useEmotterServiceClient();
   return useMutation<
     PartialMessage<CreatePostResponse>,
     unknown,
