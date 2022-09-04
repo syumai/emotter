@@ -8,7 +8,7 @@
 
 ```console
 # run server
-go run ./cmd/api
+go run .
 ```
 
 ## License

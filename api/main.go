@@ -22,8 +22,6 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-var port = flag.Int("port", 8080, "e.g. 8080")
-
 type EmotterServer struct{}
 
 var _ emotterv1connect.EmotterServiceHandler = &EmotterServer{}
@@ -71,7 +69,11 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	addr := fmt.Sprintf(":%d", *port)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	addr := fmt.Sprintf(":%s", port)
 	s := http.Server{
 		Addr:              addr,
 		Handler:           cors.Default().Handler(h2c.NewHandler(mux, &http2.Server{})),
