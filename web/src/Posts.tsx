@@ -10,10 +10,7 @@ import { Post } from "../gen/emotter/v1/emotter_pb";
 const PostForm: FC = () => {
   const refetchListPosts = useRefetchListPostsQuery();
   const { mutate } = useCreatePostMutation({
-    onSuccess: () => {
-      console.log("on success!!");
-      refetchListPosts();
-    },
+    onSuccess: () => refetchListPosts(),
   });
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
