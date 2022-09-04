@@ -18,7 +18,7 @@ const PostForm: FC = () => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
       mutate(Object.fromEntries(formData.entries()));
-      event.currentTarget.reset();
+      (event.currentTarget.emoji as HTMLInputElement).value = "";
     },
     [mutate]
   );
