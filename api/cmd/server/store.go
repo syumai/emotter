@@ -7,6 +7,8 @@ import (
 	v1 "github.com/syumai/emotter/api/gen/emotter/v1"
 )
 
+const maxPostsLength = 30
+
 var store sync.Map
 
 func storePost(post *v1.Post) {
@@ -33,5 +35,5 @@ func loadAllPosts(asc bool) []*v1.Post {
 		}
 		return posts[i].CreateTime.AsTime().Before(posts[j].CreateTime.AsTime())
 	})
-	return posts
+	return posts[:maxPostsLength]
 }
