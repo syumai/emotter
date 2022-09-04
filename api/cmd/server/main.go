@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/bufbuild/connect-go"
 	"github.com/google/uuid"
@@ -63,10 +64,15 @@ func main() {
 	mux := http.NewServeMux()
 	path, handler := emotterv1connect.NewEmotterServiceHandler(srv)
 	mux.Handle(path, handler)
-	err := http.ListenAndServe(
-		fmt.Sprintf(":%d", *port),
-		cors.Default().Handler(h2c.NewHandler(mux, &http2.Server{})),
-	)
+	s := http.Server{
+		Addr:              fmt.Sprintf(":%d", *port),
+		Handler:           cors.Default().Handler(h2c.NewHandler(mux, &http2.Server{})),
+		ReadHeaderTimeout: time.Second,
+		ReadTimeout:       5 * time.Minute,
+		WriteTimeout:      5 * time.Minute,
+		MaxHeaderBytes:    8 * 1024, // 8KiB
+	}
+	err := s.ListenAndServe()
 	if err != nil {
 		log.Fatal(err)
 	}
