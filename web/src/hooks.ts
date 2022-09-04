@@ -16,6 +16,7 @@ import {
 } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { useEmotterServiceClient } from "./client";
+import { ConnectError } from "@bufbuild/connect-web";
 
 export function useListPosts(
   request: PartialMessage<ListPostsRequest>
@@ -45,18 +46,18 @@ export function useRefetchListPostsQuery(): () => void {
 export function useCreatePostMutation(
   options?: UseMutationOptions<
     PartialMessage<CreatePostResponse>,
-    unknown,
+    ConnectError,
     PartialMessage<CreatePostRequest>
   >
 ): UseMutationResult<
   PartialMessage<CreatePostResponse>,
-  unknown,
+  ConnectError,
   PartialMessage<CreatePostRequest>
 > {
   const client = useEmotterServiceClient();
   return useMutation<
     PartialMessage<CreatePostResponse>,
-    unknown,
+    ConnectError,
     PartialMessage<CreatePostRequest>
   >((request) => client.createPost(request), options);
 }

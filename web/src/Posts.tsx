@@ -9,7 +9,7 @@ import { Post } from "../gen/emotter/v1/emotter_pb";
 
 const PostForm: FC = () => {
   const refetchListPosts = useRefetchListPostsQuery();
-  const { mutate } = useCreatePostMutation({
+  const { mutate, error } = useCreatePostMutation({
     onSuccess: () => refetchListPosts(),
   });
 
@@ -58,6 +58,7 @@ const PostForm: FC = () => {
           <button className="button is-link">Create Post</button>
         </div>
       </div>
+      {error && <div className="notification is-danger">{error.message}</div>}
     </form>
   );
 };
