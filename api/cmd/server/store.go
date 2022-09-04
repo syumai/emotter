@@ -35,5 +35,8 @@ func loadAllPosts(asc bool) []*v1.Post {
 		}
 		return posts[i].CreateTime.AsTime().Before(posts[j].CreateTime.AsTime())
 	})
+	if len(posts) < maxPostsLength {
+		return posts
+	}
 	return posts[:maxPostsLength]
 }
