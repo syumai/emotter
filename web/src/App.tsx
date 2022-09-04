@@ -24,13 +24,13 @@ const App: FC = () => (
               className="column is-one-quarter"
               style={{ textAlign: "right" }}
             >
-              <a className="button is-info is-inverted">
-                <a
-                  className="icon is-large"
-                  href="https://github.com/syumai/emotter"
-                >
+              <a
+                className="button is-info is-inverted"
+                href="https://github.com/syumai/emotter"
+              >
+                <span className="icon is-large">
                   <i className="fab fa-github fa-2x"></i>
-                </a>
+                </span>
               </a>
             </div>
           </div>
