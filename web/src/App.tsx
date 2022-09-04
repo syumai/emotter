@@ -6,8 +6,9 @@ import { createConnectTransport } from "@bufbuild/connect-web";
 import { EmotterServiceClientProvider } from "./client";
 
 const queryClient = new QueryClient();
+console.log(import.meta.env);
 const transport = createConnectTransport({
-  baseUrl: "http://localhost:8080",
+  baseUrl: import.meta.env.VITE_API_BASE_URL || "http://localhost:8080",
 });
 
 const App: FC = () => (
