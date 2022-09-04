@@ -28,6 +28,10 @@ func (e EmotterServer) CreatePost(
 	ctx context.Context,
 	req *connect.Request[v1.CreatePostRequest],
 ) (*connect.Response[v1.CreatePostResponse], error) {
+	userName := req.Msg.GetUserName()
+	if len(userName) > 20 {
+		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("user name is too long"))
+	}
 	emoji := req.Msg.GetEmoji()
 	if !validateIsEmoji(emoji) {
 		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("input is not emoji"))
