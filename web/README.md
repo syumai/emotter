@@ -9,6 +9,12 @@
 ```console
 # run dev server
 npm run dev
+
+# build
+npm run build
+
+# deploy to Cloudflare Pages
+npm run deploy
 ```
 
 ### Set API URL
