@@ -1,7 +1,7 @@
 import "./Posts.css";
 import {
   useCreatePostMutation,
-  useListPosts,
+  useListPostsQuery,
   useRefetchListPostsQuery,
 } from "./hooks";
 import { FC, useCallback } from "react";
@@ -86,7 +86,7 @@ const PostCard: FC<{ post: Post }> = ({
 );
 
 export const Posts: FC = () => {
-  const { data } = useListPosts({});
+  const { data } = useListPostsQuery({});
   return (
     <section className="section">
       <PostForm />

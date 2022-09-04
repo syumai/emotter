@@ -18,7 +18,7 @@ import { useCallback } from "react";
 import { useEmotterServiceClient } from "./client";
 import { ConnectError } from "@bufbuild/connect-web";
 
-export function useListPosts(
+export function useListPostsQuery(
   request: PartialMessage<ListPostsRequest>
 ): UseQueryResult<ListPostsResponse> {
   const client = useEmotterServiceClient();
