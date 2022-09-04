@@ -3,6 +3,15 @@
 - Emotter is an app to post and share single emoji.
 - This is an example app of [connect](https://connect.build).
 
+## Example
+
+https://emotter.syumai.com
+
+![Screen shot of emotter](https://user-images.githubusercontent.com/6882878/188297849-937fa64a-56d0-48b1-8684-5b3b09a07420.png)
+
+- API: Cloud Run
+- Web client: Cloudflare Pages
+
 ## Development
 
 ### Directory structures
@@ -12,7 +21,7 @@
 - api
   - API server (Go)
 - web
-  - Frontend app (React + Vite)
+  - Web client app (React + Vite)
 
 ### Requirements
 
