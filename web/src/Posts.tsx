@@ -1,15 +1,20 @@
 import "./Posts.css";
 import {
   useCreatePostMutation,
-  useInvalidateListPostsQuery,
   useListPosts,
+  useRefetchListPostsQuery,
 } from "./hooks";
 import { FC, useCallback } from "react";
 import { Post } from "../gen/emotter/v1/emotter_pb";
 
 const PostForm: FC = () => {
-  const invalidateListPosts = useInvalidateListPostsQuery();
-  const { mutate } = useCreatePostMutation({ onSuccess: invalidateListPosts });
+  const refetchListPosts = useRefetchListPostsQuery();
+  const { mutate } = useCreatePostMutation({
+    onSuccess: () => {
+      console.log("on success!!");
+      refetchListPosts();
+    },
+  });
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
     (event) => {
@@ -21,7 +26,7 @@ const PostForm: FC = () => {
     [mutate]
   );
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="box" onSubmit={handleSubmit}>
       <div className="field">
         <label className="label" htmlFor="userName">
           name
@@ -32,6 +37,7 @@ const PostForm: FC = () => {
             className="input"
             type="text"
             name="userName"
+            maxLength={20}
             required
           ></input>
         </div>
@@ -67,13 +73,15 @@ const PostCard: FC<{ post: Post }> = ({
       <div className="card-content">
         <div className="media">
           <div className="media-content">
-            <p className="title is-4">{userName}</p>
+            <p className="title is-6">{userName}</p>
             <p className="subtitle is-6">
               {createTime?.toDate().toLocaleString()}
             </p>
           </div>
         </div>
-        <div className="content">{emoji}</div>
+        <div className="content" style={{ fontSize: "3rem" }}>
+          {emoji}
+        </div>
       </div>
     </div>
   </div>

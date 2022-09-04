@@ -26,7 +26,7 @@ export function useListPosts(
   );
 }
 
-export function useInvalidateListPostsQuery(): () => void {
+export function useRefetchListPostsQuery(): () => void {
   const queryClient = useQueryClient();
   return useCallback(
     (request?: PartialMessage<ListPostsRequest>) => {
@@ -36,7 +36,7 @@ export function useInvalidateListPostsQuery(): () => void {
       if (request) {
         keys.push(request);
       }
-      queryClient.invalidateQueries(keys);
+      queryClient.refetchQueries(keys);
     },
     [queryClient]
   );
