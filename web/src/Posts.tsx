@@ -88,12 +88,12 @@ const PostCard: FC<{ post: Post }> = ({
 export const Posts: FC = () => {
   const { data } = useListPosts({});
   return (
-    <>
+    <section className="section">
       <PostForm />
       <hr />
       {data?.posts.map((post) => (
         <PostCard post={post} key={post.id} />
       ))}
-    </>
+    </section>
   );
 };
