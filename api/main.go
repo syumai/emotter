@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"errors"
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -19,7 +18,6 @@ import (
 )
 
 func main() {
-	flag.Parse()
 	srv := &EmotterServer{}
 	mux := http.NewServeMux()
 	path, handler := emotterv1connect.NewEmotterServiceHandler(srv)
