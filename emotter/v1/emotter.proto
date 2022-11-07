@@ -22,9 +22,12 @@ message CreatePostResponse {
   Post post = 1;
 }
 
-message ListPostsRequest {}
+message ListPostsRequest {
+  optional string user_name = 1;
+}
 
 message ListPostsResponse {
+  optional string user_name = 2;
   repeated Post posts = 1;
 }
 

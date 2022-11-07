@@ -145,6 +145,11 @@ export class CreatePostResponse extends Message<CreatePostResponse> {
  * @generated from message emotter.v1.ListPostsRequest
  */
 export class ListPostsRequest extends Message<ListPostsRequest> {
+  /**
+   * @generated from field: optional string user_name = 1;
+   */
+  userName?: string;
+
   constructor(data?: PartialMessage<ListPostsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -153,6 +158,7 @@ export class ListPostsRequest extends Message<ListPostsRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "emotter.v1.ListPostsRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListPostsRequest {
@@ -177,6 +183,11 @@ export class ListPostsRequest extends Message<ListPostsRequest> {
  */
 export class ListPostsResponse extends Message<ListPostsResponse> {
   /**
+   * @generated from field: optional string user_name = 2;
+   */
+  userName?: string;
+
+  /**
    * @generated from field: repeated emotter.v1.Post posts = 1;
    */
   posts: Post[] = [];
@@ -189,6 +200,7 @@ export class ListPostsResponse extends Message<ListPostsResponse> {
   static readonly runtime = proto3;
   static readonly typeName = "emotter.v1.ListPostsResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 2, name: "user_name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 1, name: "posts", kind: "message", T: Post, repeated: true },
   ]);
 
