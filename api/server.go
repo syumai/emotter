@@ -40,8 +40,8 @@ func (e EmotterServer) CreatePost(
 }
 
 func (e EmotterServer) ListPosts(
-	context.Context,
-	*connect.Request[v1.ListPostsRequest],
+	_ context.Context,
+	req *connect.Request[v1.ListPostsRequest],
 ) (*connect.Response[v1.ListPostsResponse], error) {
 	return connect.NewResponse(&v1.ListPostsResponse{
 		Posts: loadAllPosts(false),
