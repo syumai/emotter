@@ -2,9 +2,9 @@ import {
   createPromiseClient,
   PromiseClient,
   Transport,
-} from "@bufbuild/connect-web";
+} from "@bufbuild/connect";
 import React, { FC, useContext, useMemo } from "react";
-import { EmotterService } from "../gen/emotter/v1/emotter_connectweb";
+import { EmotterService } from "../gen/emotter/v1/emotter_connect";
 
 const EmotterServiceClientContext = React.createContext<
   PromiseClient<typeof EmotterService> | undefined

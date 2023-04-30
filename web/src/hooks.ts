@@ -1,5 +1,5 @@
 import { PartialMessage } from "@bufbuild/protobuf";
-import { EmotterService } from "../gen/emotter/v1/emotter_connectweb";
+import { EmotterService } from "../gen/emotter/v1/emotter_connect";
 import {
   CreatePostRequest,
   CreatePostResponse,
@@ -16,7 +16,7 @@ import {
 } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { useEmotterServiceClient } from "./client";
-import { ConnectError } from "@bufbuild/connect-web";
+import { ConnectError } from "@bufbuild/connect";
 
 export function useListPostsQuery(
   request: PartialMessage<ListPostsRequest>

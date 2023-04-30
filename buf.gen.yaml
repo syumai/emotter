@@ -1,16 +1,16 @@
 version: v1
 plugins:
-  - name: go
+  - plugin: go
     out: api/gen
     opt: paths=source_relative
-  - name: connect-go
+  - plugin: connect-go
     out: api/gen
     opt: paths=source_relative
-  - name: es
+  - plugin: es
     path: web/node_modules/.bin/protoc-gen-es
     out: web/gen
     opt: target=ts
-  - name: connect-web
-    path: web/node_modules/.bin/protoc-gen-connect-web
+  - plugin: connect-es
+    path: web/node_modules/.bin/protoc-gen-connect-es
     out: web/gen
     opt: target=ts
