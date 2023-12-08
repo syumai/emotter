@@ -1,5 +1,7 @@
 # emotter
 
+example PR
+
 - Emotter is an app to post and share single emoji.
 - This is an example app of [connect](https://connect.build).
 
